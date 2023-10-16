@@ -36,7 +36,7 @@ const SettingName = ({ setting }) => (
 
 In case there is a need to add more terms to be branded **or bypass branding**,
 it can be done in
-[`branded_words.rb`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/lib/foreman_theme_satellite/branded_words.rb).
+[`branded_words.rb`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/lib/foreman_theme_satellite/branded_words.rb).
 This is a dictionary where the key is a
 [Regular Expression](https://regex101.com/) and the value is a replacement
 string.
@@ -85,7 +85,7 @@ In foreman:
 ```
 will redirect to https://theforeman.org/manuals/2.2/index.html#4.1.1LDAPAuthentication
 
-to change that, we need to add a downstream documentation link to [`documentation.rb`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/lib/foreman_theme_satellite/documentation.rb):
+to change that, we need to add a downstream documentation link to [`documentation.rb`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/lib/foreman_theme_satellite/documentation.rb):
 
 ``` ruby
 USER_GUIDE_DICTIONARY = {
@@ -105,7 +105,7 @@ documentation version.
 
 Most of the time a setting's default value should be changed to a downstream
 version. This is done by adding more entries to setting changing code in
-[`settings_branding.rb`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/app/models/concerns/settings_branding.rb)
+[`settings_branding.rb`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/app/models/concerns/settings_branding.rb)
 
 ``` ruby
 @branded_settings ||= {
@@ -125,7 +125,7 @@ When a feature is deprecated upstream, a deprecation notification might need
 branding.
 
 An example to this is in
-[`deprecation_notification.rb`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/app/models/concerns/deprecation_notification.rb)
+[`deprecation_notification.rb`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/app/models/concerns/deprecation_notification.rb)
 
 Standard ruby override technique is used to override notification behavior
 
@@ -150,7 +150,7 @@ module DeprecationNotification
 end
 ```
 
-and later on in [`engine.rb`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/lib/foreman_theme_satellite/engine.rb)
+and later on in [`engine.rb`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/lib/foreman_theme_satellite/engine.rb)
 ``` ruby
 UINotifications::StringParser.send :prepend, DeprecationNotification::StringParser
 Notification.singleton_class.send :prepend, DeprecationNotification::Notification
@@ -165,7 +165,7 @@ There are two common tasks that need to be done:
 
 Layout constants may need adjusting since the logos e.t.c. look differently in
 themed pages. This is done by adding a new SCSS file under
-[`satellite`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/tree/master/app/assets/stylesheets/satellite)
+[`satellite`](https://github.com/theforeman/foreman_theme_satellite/tree/develop/app/assets/stylesheets/satellite)
 folder in `app/assets/stylesheets`.
 
 Make sure the CSS rules are the most specific, so that the CSS engine would use
@@ -194,7 +194,7 @@ When a color scheme need adjustment, most of the time it should be done across
 all the values. It will require generating the final CSS file (not the scss
 sources) and running a transformation that will result in a set of color
 changing rules that should be placed under the
-[`satellite`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/tree/master/app/assets/stylesheets/satellite)
+[`satellite`](https://github.com/theforeman/foreman_theme_satellite/tree/develop/app/assets/stylesheets/satellite)
 folder.
 
 * For files in `app/assets/...` run `rails assets:precompile`. The source path
@@ -205,7 +205,7 @@ be `public/webpack/bundle-ETag.css`
  `rails generate foreman_theme_satellite:color_diff --source_css <PATH_TO_SOURCE_FILE> --destination_file <PATH_TO_DESTINATION_FILE>`
 
 List of color conversion rules can be found in:
-[`color_changer.rb`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/lib/generators/foreman_theme_satellite/lib/color_changer.rb)
+[`color_changer.rb`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/lib/generators/foreman_theme_satellite/lib/color_changer.rb)
 in case a new rule should be added.
 
 ``` ruby
@@ -220,7 +220,7 @@ COLOR_REPLACEMENT = {
 For react components there is a need to create an extension point in the base
 code by using a proper [`Slot`](https://theforeman.github.io/foreman/?path=/docs/introduction-slot-and-fill--page).
 Later we will be able to register a `Fill` component in our global
-[`index.js`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/webpack/index.js)
+[`index.js`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/webpack/index.js)
 file.
 
 Example slot [foreman](https://github.com/theforeman/foreman/blob/6ed930afb09f340ccc0106512df53e2874ba37a5/webpack/assets/javascripts/react_app/components/HostDetails/index.js#L140) code:
@@ -291,7 +291,7 @@ end
 
 Use [deface](https://github.com/spree/deface) in order to change views,
 all the deface changes are located under
-[`app/overrides`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/app/overrides/).
+[`app/overrides`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/app/overrides/).
 
 For example, changing about page content
 
@@ -359,7 +359,7 @@ class ComputeResource < ApplicationRecord
   # ...
 ```
 
-[Theme](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/app/models/concerns/compute_resource_branding.rb):
+[Theme](https://github.com/theforeman/foreman_theme_satellite/blob/develop/app/models/concerns/compute_resource_branding.rb):
 ``` ruby
 module ComputeResourceBranding
   module ClassMethods
@@ -386,7 +386,7 @@ module Katello
 end
 ```
 
-[Branding](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/app/models/concerns/satellite_packages.rb)
+[Branding](https://github.com/theforeman/foreman_theme_satellite/blob/develop/app/models/concerns/satellite_packages.rb)
 ``` ruby
 module SatellitePackages
   extend ActiveSupport::Concern
@@ -398,7 +398,7 @@ end
 ```
 
 ### Update the list of supported provisioning templates by Red Hat.
-When there is a new template (supported by downstream) added in the upstream repo, please don't forget to update this [constant](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/app/controllers/concerns/provisioning_templates_controller_branding.rb#L4). You simply need to add the name of the new template to the array.
+When there is a new template (supported by downstream) added in the upstream repo, please don't forget to update this [constant](https://github.com/theforeman/foreman_theme_satellite/blob/develop/app/controllers/concerns/provisioning_templates_controller_branding.rb#L4). You simply need to add the name of the new template to the array.
 
 ## Theme constants and metadata fields
 
@@ -421,11 +421,11 @@ documentation_version: "6.6"
 ```
 the metadata file should be called `/usr/share/satellite/metadata.yml` for
 production style deployments, or used from
-[source](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/config/metadata.yml)
+[source](https://github.com/theforeman/foreman_theme_satellite/blob/develop/config/metadata.yml)
 directory for development and test environments.
 
 The mechanism resides in theme's
-[`engine.rb`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/-/blob/master/lib/foreman_theme_satellite/engine.rb#L119)
+[`engine.rb`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/lib/foreman_theme_satellite/engine.rb#L119)
 
 ## Testing documentation
 
@@ -448,7 +448,7 @@ documentation_version: "6.6"
 
 There is also an automatic test that tests all documentation links on each PR,
 for the test to work
-[`metadata.yml`](https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite/blob/master/config/metadata.yml)
+[`metadata.yml`](https://github.com/theforeman/foreman_theme_satellite/blob/develop/config/metadata.yml)
 should be updated accordingly.
 
 ## Tests:

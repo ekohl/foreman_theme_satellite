@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.sat.engineering.redhat.com/satellite6/foreman_theme_satellite.git"
+    "url": "git+https://github.com/theforeman/foreman_theme_satellite.git"
   },
   "bugs": {
     "url": "http://bugzilla.redhat.com/"
