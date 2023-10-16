@@ -1,3 +1,3 @@
 module ForemanThemeSatellite
-  VERSION = "13.0.0.2"
+  VERSION = '13.1.0'.freeze
 end
